@@ -1,20 +1,29 @@
+// Selecting Elements
+
 let screen = document.querySelector(".display");
 let add = document.querySelector(".add");
 let minus = document.querySelector(".minus");
 let reset = document.querySelector(".reset");
 
-let counter = "0";
+let counter = "";
 
+// plus button
 add.addEventListener("click", () => {
   screen.innerHTML = counter++;
   screen.innerHTML = counter;
 });
 
+// minus button
 minus.addEventListener("click", () => {
-  screen.innerHTML = counter--;
+  if (counter <= 0) {
+    screen.innerHTML = "0️⃣";
+  } else {
+    screen.innerHTML = counter--;
+  }
   screen.innerHTML = counter;
 });
 
+// reset button
 reset.addEventListener("click", () => {
   screen.innerHTML = "0️⃣";
   counter = "0";
