@@ -1,0 +1,49 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  color: darkblue;
+  font-family: sans-serif;
+}
+
+button {
+  margin-top: 3%;
+  background-color: dodgerblue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 18px;
+  margin-bottom: 5%;
+  text-shadow: 0px 0px 7px white;
+}
+
+.add {
+  margin-top: 40px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  max-width: 80%;
+  box-shadow: 0px 3px 15px;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 40px auto;
+}
+
+.display {
+  background-color: darkgray;
+  margin: 5px;
+  padding: 4px 15px;
+  border-radius: 5px;
+  font-size: 50px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
