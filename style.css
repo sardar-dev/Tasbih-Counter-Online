@@ -10,40 +10,57 @@ body {
 
 button {
   margin-top: 3%;
-  background-color: dodgerblue;
-  color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 18px;
   margin-bottom: 5%;
-  text-shadow: 0px 0px 7px white;
+  text-shadow: 0px 0px 5px white;
+}
+
+.minus,
+.reset {
+  background-color: dodgerblue;
 }
 
 .add {
-  margin-top: 40px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 400%;
+  margin-bottom: 10%;
+  background-color: white;
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   background-color: white;
   max-width: 80%;
   box-shadow: 0px 3px 15px;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 20px;
-  margin: 40px auto;
+  margin-top: 5%;
 }
 
 .display {
   background-color: darkgray;
-  margin: 5px;
-  padding: 4px 15px;
+  margin: 20px;
   border-radius: 5px;
-  font-size: 50px;
+  font-size: 80px;
+  border-radius: 50%;
+  text-shadow: 0px 0px 5px white;
+  padding: 15px 25px;
 }
 
 h1 {
   margin-bottom: 20px;
+  font-size: 200%;
+  color: white;
+  background-color: dodgerblue;
+  padding: 5px 10px;
+  border-radius: 7px;
 }
