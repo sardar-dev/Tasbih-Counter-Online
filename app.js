@@ -16,7 +16,7 @@ add.addEventListener("click", () => {
 // minus button
 minus.addEventListener("click", () => {
   if (counter <= 0) {
-    screen.innerHTML = "0️⃣";
+    screen.innerHTML = "0";
   } else {
     screen.innerHTML = counter--;
   }
@@ -25,6 +25,6 @@ minus.addEventListener("click", () => {
 
 // reset button
 reset.addEventListener("click", () => {
-  screen.innerHTML = "0️⃣";
+  screen.innerHTML = "0";
   counter = "0";
 });
