@@ -1,30 +1,37 @@
 // Selecting Elements
-
 let screen = document.querySelector(".display");
 let add = document.querySelector(".add");
 let minus = document.querySelector(".minus");
 let reset = document.querySelector(".reset");
 
-let counter = "";
+let counter = Number(localStorage.getItem("tasbih_counter")) || 0;
 
-// plus button
+// Render counter + trigger pop animation
+function render() {
+  screen.innerHTML = counter;
+  screen.classList.remove("pop");
+  void screen.offsetWidth; // force reflow → restarts animation
+  screen.classList.add("pop");
+}
+
+screen.innerHTML = counter;
+
 add.addEventListener("click", () => {
-  screen.innerHTML = counter++;
-  screen.innerHTML = counter;
+  counter++;
+  localStorage.setItem("tasbih_counter", counter);
+  render();
 });
 
-// minus button
 minus.addEventListener("click", () => {
-  if (counter <= 0) {
-    screen.innerHTML = "0";
-  } else {
-    screen.innerHTML = counter--;
+  if (counter > 0) {
+    counter--;
+    localStorage.setItem("tasbih_counter", counter);
+    render();
   }
-  screen.innerHTML = counter;
 });
 
-// reset button
 reset.addEventListener("click", () => {
-  screen.innerHTML = "0";
-  counter = "0";
+  counter = 0;
+  localStorage.removeItem("tasbih_counter");
+  render();
 });
