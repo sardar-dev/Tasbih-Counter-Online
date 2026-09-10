@@ -1,66 +1,248 @@
+/* ═══════════════════════════════════════════
+   Tasbih Counter — Modern Dark Emerald Theme
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap');
+
+/* ── Design Tokens ─────────────────────────── */
+:root {
+  --bg: #070d0b;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --emerald: #10b981;
+  --emerald-light: #6ee7b7;
+  --emerald-dark: #059669;
+  --gold: #f59e0b;
+  --red: #f87171;
+  --text: #eef2f0;
+  --radius: 28px;
+}
+
+/* ── Reset & Base ──────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: aliceblue;
-  color: darkblue;
-  font-family: sans-serif;
+  font-family: 'Outfit', system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  color: var(--text);
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 700px at 85% -10%, rgba(16, 185, 129, 0.16), transparent 60%),
+    radial-gradient(900px 650px at 5% 110%, rgba(245, 158, 11, 0.09), transparent 60%),
+    var(--bg);
 }
 
-button {
-  margin-top: 3%;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 18px;
-  margin-bottom: 5%;
-  text-shadow: 0px 0px 5px white;
-}
-
-.minus,
-.reset {
-  background-color: dodgerblue;
-}
-
-.add {
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin-top: 30px;
-  font-size: 400%;
-  margin-bottom: 10%;
-  background-color: white;
-}
-
+/* ── Main Card (glassmorphism) ─────────────── */
 .main {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  width: min(100%, 420px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  justify-content: center;
+  gap: 1rem;
+  padding: 2.5rem 2rem 2.25rem;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: cardIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ── Heading ───────────────────────────────── */
+.main h1 {
+  grid-column: 1 / -1;
   text-align: center;
-  background-color: white;
-  max-width: 80%;
-  box-shadow: 0px 3px 15px;
-  border-radius: 15px;
-  padding: 20px;
-  margin-top: 5%;
+  font-size: clamp(1.4rem, 5.5vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, var(--emerald-light), var(--emerald), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+/* ── Counter Display ───────────────────────── */
 .display {
-  background-color: darkgray;
-  margin: 20px;
-  border-radius: 5px;
-  font-size: 80px;
-  border-radius: 50%;
-  text-shadow: 0px 0px 5px white;
-  padding: 15px 25px;
+  grid-column: 1 / -1;
+  position: relative;
+  justify-self: center;
+  width: clamp(200px, 62vw, 240px);
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  margin: 1.5rem 0 2rem;
+  font-size: clamp(3.5rem, 19vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+  background: linear-gradient(160deg, #ffffff 20%, var(--emerald-light) 60%, #fcd34d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(16, 185, 129, 0.35));
 }
 
-h1 {
-  margin-bottom: 20px;
-  font-size: 200%;
-  color: white;
-  background-color: dodgerblue;
-  padding: 5px 10px;
-  border-radius: 7px;
+/* rotating dashed "prayer beads" ring */
+.display::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(16, 185, 129, 0.35);
+  animation: spin 24s linear infinite;
+}
+
+/* breathing glow behind the number */
+.display::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(16, 185, 129, 0.14), transparent 70%);
+  z-index: -1;
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* pop animation triggered by JS on every tap */
+.display.pop {
+  animation: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Buttons ───────────────────────────────── */
+.main button {
+  font-family: inherit;
+  font-size: clamp(1.3rem, 6vw, 1.6rem);
+  width: 100%;
+  max-width: 4.5rem;
+  aspect-ratio: 1;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+  animation: cardIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.add   { animation-delay: 0.15s; }
+.minus { animation-delay: 0.25s; }
+.reset { animation-delay: 0.35s; }
+
+/* plus — hero button */
+.add {
+  background: linear-gradient(145deg, var(--emerald), var(--emerald-dark));
+  border-color: rgba(110, 231, 183, 0.45);
+  box-shadow: 0 12px 28px -8px rgba(16, 185, 129, 0.55);
+}
+
+/* minus — soft red accent */
+.minus:hover {
+  border-color: rgba(248, 113, 113, 0.5);
+  box-shadow: 0 12px 28px -10px rgba(248, 113, 113, 0.5);
+}
+
+/* reset — gold accent */
+.reset:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 12px 28px -10px rgba(245, 158, 11, 0.5);
+}
+
+.add:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 18px 36px -8px rgba(16, 185, 129, 0.7);
+}
+
+.minus:hover,
+.reset:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+/* satisfying press effect */
+.add:active,
+.minus:active,
+.reset:active {
+  transform: scale(0.9);
+  filter: brightness(1.2);
+}
+
+/* keyboard accessibility */
+button:focus-visible {
+  outline: 3px solid var(--emerald-light);
+  outline-offset: 4px;
+}
+
+/* ── Keyframes ─────────────────────────────── */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.07); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* ── Responsive Tweaks ─────────────────────── */
+
+/* short screens (landscape phones) */
+@media (max-height: 640px) {
+  body { overflow: auto; }
+  .main { padding: 1.5rem; }
+  .display {
+    width: 170px;
+    font-size: 3.2rem;
+    margin: 1rem 0 1.25rem;
+  }
+}
+
+/* very small phones */
+@media (max-width: 340px) {
+  .main { gap: 0.6rem; padding: 1.75rem 1.25rem; }
+}
+
+/* respect users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
